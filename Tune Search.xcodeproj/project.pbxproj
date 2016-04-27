@@ -13,6 +13,11 @@
 		49A9C4EA1CCEE0560007781F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49A9C4E81CCEE0560007781F /* Main.storyboard */; };
 		49A9C4EC1CCEE0560007781F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49A9C4EB1CCEE0560007781F /* Assets.xcassets */; };
 		49A9C4EF1CCEE0560007781F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49A9C4ED1CCEE0560007781F /* LaunchScreen.storyboard */; };
+		49A9C4F81CCEE0A70007781F /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 49A9C4F71CCEE0A70007781F /* Reachability.m */; };
+		49FCA7451CCFDA500092415D /* Song.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FCA7441CCFDA500092415D /* Song.m */; };
+		49FCA7471CCFE0E30092415D /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49FCA7461CCFE0E30092415D /* Social.framework */; };
+		49FCA7491CCFE0E90092415D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49FCA7481CCFE0E90092415D /* SystemConfiguration.framework */; };
+		49FCA74C1CCFE61D0092415D /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FCA74B1CCFE61D0092415D /* DetailViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +31,14 @@
 		49A9C4EB1CCEE0560007781F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		49A9C4EE1CCEE0560007781F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		49A9C4F01CCEE0560007781F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		49A9C4F61CCEE0A70007781F /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		49A9C4F71CCEE0A70007781F /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		49FCA7431CCFDA500092415D /* Song.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Song.h; sourceTree = "<group>"; };
+		49FCA7441CCFDA500092415D /* Song.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Song.m; sourceTree = "<group>"; };
+		49FCA7461CCFE0E30092415D /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		49FCA7481CCFE0E90092415D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		49FCA74A1CCFE61D0092415D /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
+		49FCA74B1CCFE61D0092415D /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +46,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49FCA7491CCFE0E90092415D /* SystemConfiguration.framework in Frameworks */,
+				49FCA7471CCFE0E30092415D /* Social.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,6 +57,8 @@
 		49A9C4D31CCEE0560007781F = {
 			isa = PBXGroup;
 			children = (
+				49FCA7481CCFE0E90092415D /* SystemConfiguration.framework */,
+				49FCA7461CCFE0E30092415D /* Social.framework */,
 				49A9C4DE1CCEE0560007781F /* Tune Search */,
 				49A9C4DD1CCEE0560007781F /* Products */,
 			);
@@ -62,7 +79,13 @@
 				49A9C4E31CCEE0560007781F /* AppDelegate.m */,
 				49A9C4E51CCEE0560007781F /* ViewController.h */,
 				49A9C4E61CCEE0560007781F /* ViewController.m */,
+				49FCA74A1CCFE61D0092415D /* DetailViewController.h */,
+				49FCA74B1CCFE61D0092415D /* DetailViewController.m */,
 				49A9C4E81CCEE0560007781F /* Main.storyboard */,
+				49FCA7431CCFDA500092415D /* Song.h */,
+				49FCA7441CCFDA500092415D /* Song.m */,
+				49A9C4F61CCEE0A70007781F /* Reachability.h */,
+				49A9C4F71CCEE0A70007781F /* Reachability.m */,
 				49A9C4EB1CCEE0560007781F /* Assets.xcassets */,
 				49A9C4ED1CCEE0560007781F /* LaunchScreen.storyboard */,
 				49A9C4F01CCEE0560007781F /* Info.plist */,
@@ -150,9 +173,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49FCA7451CCFDA500092415D /* Song.m in Sources */,
 				49A9C4E71CCEE0560007781F /* ViewController.m in Sources */,
 				49A9C4E41CCEE0560007781F /* AppDelegate.m in Sources */,
+				49A9C4F81CCEE0A70007781F /* Reachability.m in Sources */,
 				49A9C4E11CCEE0560007781F /* main.m in Sources */,
+				49FCA74C1CCFE61D0092415D /* DetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -303,6 +329,7 @@
 				49A9C4F51CCEE0560007781F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
