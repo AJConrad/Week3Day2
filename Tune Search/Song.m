@@ -10,12 +10,13 @@
 
 @implementation Song
 
-- (id)initWithName:(NSString *)songName andImageName:(NSString *)imageName andCollection:(NSString *)collectionName {
+- (id)initWithName:(NSString *)songName andCollectionUrl:(NSString *)collectionUrl andImageName:(NSString *)imageName andCollection:(NSString *)collectionName {
     self = [super init];
     if (self) {
         self.songName = songName;
         self.songImageFilename = imageName;
         self.collectionName = collectionName;
+        self.collectionViewUrl = collectionUrl;
     }
     return self;
 }

@@ -8,12 +8,22 @@
 
 #import "DetailViewController.h"
 #import <Social/Social.h>
+#import <safariServices/SafariServices.h>
 
 @interface DetailViewController ()
 
 @end
 
 @implementation DetailViewController
+
+#pragma mark - Internet Buttons
+
+- (IBAction)safariButtonPressed:(id)sender {
+    NSLog(@"Show Safari");
+    SFSafariViewController *safariVC = [[SFSafariViewController alloc]initWithURL: [NSURL URLWithString:_currentSong.collectionViewUrl]];
+    [self.navigationController presentViewController:safariVC animated:true completion:nil];
+    
+}
 
 #pragma mark - Share Buttons
 

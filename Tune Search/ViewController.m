@@ -10,14 +10,17 @@
 #import "Song.h"
 #import "Reachability.h"
 #import "DetailViewController.h"
+#import "SongCollectionViewCell.h"
 
 
 @interface ViewController ()
 
 @property (nonatomic, strong)               NSString            *hostName;
 @property (nonatomic, strong)               NSMutableArray      *songArray;
-@property (nonatomic, weak)     IBOutlet    UITableView         *songsTableView;
+@property (nonatomic, weak)     IBOutlet    UICollectionView    *songsCollectionView;
 @property (nonatomic, weak)     IBOutlet    UITextField         *artistSearchTextField;
+
+//collectionViewUrl is the key for the in app browser
 
 @end
 
@@ -45,30 +48,31 @@ bool serverAvailable;
     
 }
 
-#pragma mark - Table View Methods
+#pragma mark - Collection View Methods
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return _songArray.count;
+    
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    SongCollectionViewCell *cell = (SongCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
+    
     Song *currentSong = _songArray[indexPath.row];
-    cell.textLabel.text = currentSong.songName;
-    cell.detailTextLabel.text = currentSong.collectionName;
+    cell.songNameLabel.text = currentSong.songName;
+    
     if ([self file:currentSong.songLocalImageFilename isInDirectory:[self getDocumentsDirectory]]) {
         NSLog(@"Found %@",currentSong.songImageFilename);
-        cell.imageView.image = [UIImage imageNamed:[[self getDocumentsDirectory] stringByAppendingPathComponent:currentSong.songLocalImageFilename]];
+        cell.songImageView.image = [UIImage imageNamed:[[self getDocumentsDirectory] stringByAppendingPathComponent:currentSong.songLocalImageFilename]];
     } else {
         NSLog(@"Not Found %@",currentSong.songImageFilename);
         [self getImageFromServer:currentSong.songLocalImageFilename fromUrl:currentSong.songImageFilename atIndexPath:indexPath];
     }
-
-    
     
     return cell;
+    
 }
-
 
 
 #pragma mark - Network Methods
@@ -131,8 +135,9 @@ bool serverAvailable;
                 if (imageTemp != nil) {
                     [data writeToFile:savedFilePath atomically:true];
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        [_songsTableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation: UITableViewRowAnimationAutomatic];
-                });
+                        [_songsCollectionView reloadItemsAtIndexPaths:@[indexPath]];
+
+                    });
                 }
             } else {
             }
@@ -146,15 +151,9 @@ bool serverAvailable;
 
 #pragma mark - Interactivity Methods
 
-//
-//
-//GET IMAGE FROM SERVER
-//
-//
-
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     DetailViewController *destController = [segue destinationViewController];
-    NSIndexPath *indexPath = [_songsTableView indexPathForSelectedRow];
+    NSIndexPath *indexPath = [_songsCollectionView indexPathsForSelectedItems][0];
     destController.currentSong = [_songArray objectAtIndex:indexPath.row];
     
 }
@@ -188,8 +187,12 @@ bool serverAvailable;
                 for (NSDictionary *songDict in tempArray) {
                     NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
                     formatter.dateFormat = @"yyyy-MM-dd";
-                    Song *newSong = [[Song alloc]initWithName:[songDict objectForKey:@"trackName"] andImageName:[songDict objectForKey:@"artworkUrl30"]
-                        andCollection:[songDict objectForKey:@"collectionName"]];
+                    
+                    Song *newSong = [[Song alloc]initWithName:[songDict objectForKey:@"trackName"]
+                                             andCollectionUrl:[songDict objectForKey:@"collectionViewUrl"]
+                                                 andImageName:[songDict objectForKey:@"artworkUrl100"]
+                                                andCollection:[songDict objectForKey:@"collectionName"]];
+
                     newSong.songLocalImageFilename = [NSString stringWithFormat:@"%@.jpg",[songDict objectForKey:@"trackId"]];
                     [_songArray addObject:newSong];
                 }
@@ -200,7 +203,7 @@ bool serverAvailable;
                     //BUT THIS COMMENT WAS COPIED FROM CLASS WHAT DOES IT MEAAAANNNNN
                     //
                     //
-                    [_songsTableView reloadData];
+                    [_songsCollectionView reloadData];
                 });
             }
         }] resume];

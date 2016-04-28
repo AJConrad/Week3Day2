@@ -18,6 +18,7 @@
 		49FCA7471CCFE0E30092415D /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49FCA7461CCFE0E30092415D /* Social.framework */; };
 		49FCA7491CCFE0E90092415D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49FCA7481CCFE0E90092415D /* SystemConfiguration.framework */; };
 		49FCA74C1CCFE61D0092415D /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FCA74B1CCFE61D0092415D /* DetailViewController.m */; };
+		49FCA75F1CD126270092415D /* SongCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FCA75E1CD126270092415D /* SongCollectionViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,8 @@
 		49FCA7481CCFE0E90092415D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		49FCA74A1CCFE61D0092415D /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		49FCA74B1CCFE61D0092415D /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		49FCA75D1CD126270092415D /* SongCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SongCollectionViewCell.h; sourceTree = "<group>"; };
+		49FCA75E1CD126270092415D /* SongCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SongCollectionViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +84,8 @@
 				49A9C4E61CCEE0560007781F /* ViewController.m */,
 				49FCA74A1CCFE61D0092415D /* DetailViewController.h */,
 				49FCA74B1CCFE61D0092415D /* DetailViewController.m */,
+				49FCA75D1CD126270092415D /* SongCollectionViewCell.h */,
+				49FCA75E1CD126270092415D /* SongCollectionViewCell.m */,
 				49A9C4E81CCEE0560007781F /* Main.storyboard */,
 				49FCA7431CCFDA500092415D /* Song.h */,
 				49FCA7441CCFDA500092415D /* Song.m */,
@@ -178,6 +183,7 @@
 				49A9C4E41CCEE0560007781F /* AppDelegate.m in Sources */,
 				49A9C4F81CCEE0A70007781F /* Reachability.m in Sources */,
 				49A9C4E11CCEE0560007781F /* main.m in Sources */,
+				49FCA75F1CD126270092415D /* SongCollectionViewCell.m in Sources */,
 				49FCA74C1CCFE61D0092415D /* DetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
