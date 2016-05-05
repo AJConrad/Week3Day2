@@ -18,8 +18,49 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ILE-3R-TqH">
+                                <rect key="frame" x="0.0" y="64" width="600" height="44"/>
+                                <subviews>
+                                    <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="CQj-I0-8Z7">
+                                        <rect key="frame" x="0.0" y="0.0" width="515" height="44"/>
+                                        <gestureRecognizers/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="eiG-Uh-Rn8"/>
+                                        </constraints>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="DMh-Yn-zjs" appends="YES" id="bz9-0r-pOc"/>
+                                        </connections>
+                                    </searchBar>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wT7-En-HPI">
+                                        <rect key="frame" x="515" y="0.0" width="85" height="44"/>
+                                        <color key="backgroundColor" red="1" green="0.054618008503826032" blue="0.10096496739530347" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="PwH-3r-rqB"/>
+                                            <constraint firstAttribute="width" constant="85" id="hct-eb-WZG"/>
+                                        </constraints>
+                                        <state key="normal" title="Search">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="searchButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="HCl-My-Tmq"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.17090555160000001" green="0.81419602420000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="CQj-I0-8Z7" firstAttribute="leading" secondItem="ILE-3R-TqH" secondAttribute="leading" id="4cO-xc-kJB"/>
+                                    <constraint firstItem="CQj-I0-8Z7" firstAttribute="top" secondItem="ILE-3R-TqH" secondAttribute="top" id="9WT-sd-kro"/>
+                                    <constraint firstAttribute="bottom" secondItem="CQj-I0-8Z7" secondAttribute="bottom" id="Axx-92-vHb"/>
+                                    <constraint firstAttribute="height" constant="44" id="Lj0-gK-tjF"/>
+                                    <constraint firstAttribute="trailing" secondItem="wT7-En-HPI" secondAttribute="trailing" id="OTa-2B-liD"/>
+                                    <constraint firstAttribute="bottom" secondItem="wT7-En-HPI" secondAttribute="bottom" id="i29-VQ-s8b"/>
+                                    <constraint firstItem="wT7-En-HPI" firstAttribute="top" secondItem="ILE-3R-TqH" secondAttribute="top" id="upy-vK-mZV"/>
+                                    <constraint firstItem="wT7-En-HPI" firstAttribute="leading" secondItem="CQj-I0-8Z7" secondAttribute="trailing" id="vZS-6F-rWQ"/>
+                                </constraints>
+                            </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="1F3-zi-4Hc">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="108" width="600" height="492"/>
                                 <color key="backgroundColor" red="0.17090555162045984" green="0.81419602416032244" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Iuz-kE-zd1">
                                     <size key="itemSize" width="100" height="121"/>
@@ -35,9 +76,10 @@
                                             <rect key="frame" x="0.0" y="0.0" width="100" height="121"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kpO-XI-w1h">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kpO-XI-w1h">
                                                     <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                                     <constraints>
+                                                        <constraint firstAttribute="width" constant="100" id="goo-kB-Crh"/>
                                                         <constraint firstAttribute="height" constant="100" id="uWF-Dc-2nC"/>
                                                     </constraints>
                                                 </imageView>
@@ -64,37 +106,47 @@
                                 </connections>
                             </collectionView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.17090555160000001" green="0.81419602420000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="1F3-zi-4Hc" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="-64" id="MEN-FK-tQ3"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="1F3-zi-4Hc" secondAttribute="trailing" constant="-20" id="YGP-FI-itC"/>
-                            <constraint firstItem="1F3-zi-4Hc" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="da8-cc-lD2"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="1F3-zi-4Hc" secondAttribute="bottom" id="wiy-pQ-SA5"/>
+                            <constraint firstItem="1F3-zi-4Hc" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="4Lp-ud-rpg"/>
+                            <constraint firstItem="1F3-zi-4Hc" firstAttribute="top" secondItem="ILE-3R-TqH" secondAttribute="bottom" id="6H1-Ed-MJb"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="1F3-zi-4Hc" secondAttribute="bottom" id="8D7-si-3G8"/>
+                            <constraint firstItem="ILE-3R-TqH" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="Gve-lP-WYT"/>
+                            <constraint firstItem="ILE-3R-TqH" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="TjR-za-za2"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="1F3-zi-4Hc" secondAttribute="trailing" constant="-20" id="U27-N0-8gp"/>
+                            <constraint firstItem="1F3-zi-4Hc" firstAttribute="top" secondItem="ILE-3R-TqH" secondAttribute="bottom" constant="1" id="sot-S4-Fo1"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ILE-3R-TqH" secondAttribute="trailing" constant="-20" id="tQE-tT-p3c"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="sot-S4-Fo1"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="0rb-h3-FAB">
                         <nil key="title"/>
-                        <textField key="titleView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search Artist Here" textAlignment="natural" minimumFontSize="17" id="BDI-dh-mnr">
-                            <rect key="frame" x="180" y="7" width="240" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <textInputTraits key="textInputTraits"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="c1a-a1-IrP">
                             <connections>
-                                <outlet property="delegate" destination="BYZ-38-t0r" id="u6c-As-3Xk"/>
-                            </connections>
-                        </textField>
-                        <barButtonItem key="rightBarButtonItem" title="Search" id="c1a-a1-IrP">
-                            <connections>
-                                <action selector="searchButton:" destination="BYZ-38-t0r" id="2d9-o2-r3b"/>
+                                <action selector="toggleMenuView:" destination="BYZ-38-t0r" id="xRM-b7-17M"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="artistSearchTextField" destination="BDI-dh-mnr" id="SjA-cr-6Dy"/>
+                        <outlet property="collectionBottomConstraint" destination="8D7-si-3G8" id="J2C-Ut-cZh"/>
+                        <outlet property="collectionTopConstraint" destination="6H1-Ed-MJb" id="NYs-bz-LGr"/>
+                        <outlet property="menuTopConstraint" destination="Gve-lP-WYT" id="HXr-PD-x0d"/>
+                        <outlet property="menuView" destination="ILE-3R-TqH" id="URa-xr-KZQ"/>
+                        <outlet property="searchBar" destination="CQj-I0-8Z7" id="5IH-ME-bFA"/>
                         <outlet property="songsCollectionView" destination="1F3-zi-4Hc" id="RkB-iN-Lej"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="DMh-Yn-zjs">
+                    <connections>
+                        <action selector="searchSelectGesture:" destination="BYZ-38-t0r" id="bxv-II-aq1"/>
+                        <outlet property="delegate" destination="BYZ-38-t0r" id="Cy7-VC-385"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1023" y="997"/>
         </scene>
@@ -124,13 +176,6 @@
                                     <action selector="fbButtonSent:" destination="7h9-I0-Ry9" eventType="touchUpInside" id="xRI-TS-2RB"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zWw-on-GVY">
-                                <rect key="frame" x="20" y="186" width="560" height="30"/>
-                                <state key="normal" title="Share Anywhere"/>
-                                <connections>
-                                    <action selector="whereverButtonSent:" destination="7h9-I0-Ry9" eventType="touchUpInside" id="VDU-tt-0Tk"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cqr-eG-XDn">
                                 <rect key="frame" x="20" y="148" width="560" height="30"/>
                                 <state key="normal" title="SMS"/>
@@ -145,6 +190,25 @@
                                     <action selector="safariButtonPressed:" destination="7h9-I0-Ry9" eventType="touchUpInside" id="w8Y-bd-dw3"/>
                                 </connections>
                             </button>
+                            <imageView multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4pK-rV-xzg">
+                                <rect key="frame" x="200" y="262" width="200" height="200"/>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="Mmm-87-FDb"/>
+                                    <constraint firstAttribute="width" constant="200" id="P3I-AY-mfj"/>
+                                </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="tdN-ix-ghn" appends="YES" id="XIW-0m-Dg8"/>
+                                    <outletCollection property="gestureRecognizers" destination="cpw-aT-UZY" appends="YES" id="PKA-ga-gI1"/>
+                                </connections>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zWw-on-GVY">
+                                <rect key="frame" x="20" y="186" width="560" height="30"/>
+                                <state key="normal" title="Share Anywhere"/>
+                                <connections>
+                                    <action selector="whereverButtonSent:" destination="7h9-I0-Ry9" eventType="touchUpInside" id="VDU-tt-0Tk"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -153,8 +217,10 @@
                             <constraint firstItem="thw-57-i2I" firstAttribute="top" secondItem="lcb-br-TKb" secondAttribute="bottom" constant="8" id="9I1-QG-XJc"/>
                             <constraint firstAttribute="trailingMargin" secondItem="lcb-br-TKb" secondAttribute="trailing" id="B0R-py-zjS"/>
                             <constraint firstItem="cqr-eG-XDn" firstAttribute="top" secondItem="thw-57-i2I" secondAttribute="bottom" constant="8" id="HaN-Gj-ln6"/>
+                            <constraint firstItem="4pK-rV-xzg" firstAttribute="centerX" secondItem="sqk-Q9-V4q" secondAttribute="centerX" id="Jld-pz-OMC"/>
                             <constraint firstItem="zWw-on-GVY" firstAttribute="top" secondItem="cqr-eG-XDn" secondAttribute="bottom" constant="8" id="W0A-a7-u0u"/>
                             <constraint firstAttribute="leadingMargin" secondItem="cqr-eG-XDn" secondAttribute="leading" id="ZOt-eq-4IN"/>
+                            <constraint firstItem="4pK-rV-xzg" firstAttribute="top" secondItem="y4N-aR-uKf" secondAttribute="bottom" constant="8" id="b0v-OO-bGt"/>
                             <constraint firstAttribute="leadingMargin" secondItem="zWw-on-GVY" secondAttribute="leading" id="cef-cl-VQV"/>
                             <constraint firstItem="y4N-aR-uKf" firstAttribute="top" secondItem="zWw-on-GVY" secondAttribute="bottom" constant="8" id="cuP-D2-f3h"/>
                             <constraint firstItem="lcb-br-TKb" firstAttribute="top" secondItem="rpa-4v-apr" secondAttribute="bottom" constant="8" id="ed0-pe-Prz"/>
@@ -165,9 +231,30 @@
                             <constraint firstAttribute="trailingMargin" secondItem="cqr-eG-XDn" secondAttribute="trailing" id="v7d-MB-rWQ"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Song Details" id="OtD-ia-17o"/>
+                    <navigationItem key="navigationItem" title="Song Details" id="OtD-ia-17o">
+                        <barButtonItem key="rightBarButtonItem" title="Play Song Sample" id="fyC-0y-FDQ">
+                            <connections>
+                                <action selector="sampleBarButton:" destination="7h9-I0-Ry9" id="Ue1-JE-8FZ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="albumCoverView" destination="4pK-rV-xzg" id="tkL-Lz-tk0"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zYt-KN-ZRk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <pinchGestureRecognizer id="tdN-ix-ghn">
+                    <connections>
+                        <action selector="imagePincher:" destination="7h9-I0-Ry9" id="XCV-CH-741"/>
+                        <outlet property="delegate" destination="7h9-I0-Ry9" id="anm-bC-Z5d"/>
+                    </connections>
+                </pinchGestureRecognizer>
+                <rotationGestureRecognizer id="cpw-aT-UZY">
+                    <connections>
+                        <action selector="imageRotator:" destination="7h9-I0-Ry9" id="YEV-2n-2Ta"/>
+                        <outlet property="delegate" destination="7h9-I0-Ry9" id="qNX-O8-m3C"/>
+                    </connections>
+                </rotationGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1678" y="997"/>
         </scene>

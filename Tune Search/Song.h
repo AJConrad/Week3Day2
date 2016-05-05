@@ -15,8 +15,9 @@
 @property (nonatomic, strong)   NSString    *songLocalImageFilename;
 @property (nonatomic, strong)   NSString    *collectionName;
 @property (nonatomic, strong)   NSString    *collectionViewUrl;
+@property (nonatomic, strong)   NSString    *sampleURL;
 
 
-- (id) initWithName:(NSString *)songName andCollectionUrl:(NSString *)collectionUrl andImageName:(NSString *)imageName andCollection:(NSString *)collectionName;
+- (id) initWithName:(NSString *)songName andCollectionUrl:(NSString *)collectionUrl andImageName:(NSString *)imageName andSample:(NSString *)previewUrl andCollection:(NSString *)collectionName;
 
 @end

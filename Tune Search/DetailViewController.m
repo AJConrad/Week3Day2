@@ -9,10 +9,22 @@
 #import "DetailViewController.h"
 #import <Social/Social.h>
 #import <safariServices/SafariServices.h>
+#import <AudioToolbox/AudioToolbox.h>
+#import <AVFoundation/AVFoundation.h>
+#import "AppDelegate.h"
 
 @interface DetailViewController ()
 
+@property (nonatomic, strong)                       AppDelegate             *appDelegate;
+@property (nonatomic, weak)         IBOutlet        UIImageView             *albumCoverView;
+
+@property (nonatomic, strong)                       AVPlayer                *audioPlayer;
+@property (nonatomic, strong)                       AVSpeechSynthesizer     *synthesizer;
+
 @end
+
+CGFloat lastScale;
+CGFloat lastRotation;
 
 @implementation DetailViewController
 
@@ -77,25 +89,75 @@
     [self.navigationController presentViewController:activityVC animated:true completion:nil];
 }
 
+#pragma mark - Audio and Image Methods
+
+- (IBAction)sampleBarButton:(UIBarButtonItem *)button {
+    if ([button.title isEqualToString:@"Play Song Sample"]) {
+        button.title = @"Pause Song Sample";
+        [_audioPlayer play];
+        NSLog(@"Started Playing");
+        
+    } else {
+        button.title = @"Play Song Sample";
+        [_audioPlayer pause];
+    }
+}
+
+- (void) playerItemDidReachEnd:(NSNotification *)notification {
+    AVPlayerItem *playerItem = [notification object];
+    if (playerItem == _audioPlayer.currentItem) {
+        [_audioPlayer.currentItem seekToTime:kCMTimeZero];
+        [_audioPlayer pause];
+    }
+}
+
+- (IBAction)imagePincher:(UIPinchGestureRecognizer *)gesture {
+    if (gesture.state == UIGestureRecognizerStateBegan) {
+        lastScale = 1.0;
+    }
+    CGFloat scale = 1.0 - (lastScale - gesture.scale);
+    CGAffineTransform currentTransform = _albumCoverView.transform;
+    CGAffineTransform newTransform = CGAffineTransformScale(currentTransform, scale, scale);
+    [_albumCoverView setTransform:newTransform];
+    lastScale = gesture.scale;
+}
+
+- (IBAction)imageRotator:(UIRotationGestureRecognizer *)gesture {
+    if (gesture.state == UIGestureRecognizerStateEnded) {
+        lastRotation = 0;
+        return;
+    }
+    CGFloat rotation = 0.0 - (lastRotation -gesture.rotation);
+    CGAffineTransform currentTransform = _albumCoverView.transform;
+    CGAffineTransform newTransform = CGAffineTransformRotate(currentTransform, rotation);
+    [_albumCoverView setTransform:newTransform];
+    lastRotation = gesture.rotation;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
+shouldRecognizeSimultaneouslyWithGestureRecognizer:(nonnull UIGestureRecognizer *)otherGestureRecognizer {
+    return true;
+}
+
+#pragma mark - Life Cycle Methods
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    _appDelegate = [[UIApplication sharedApplication] delegate];
+    
+    _albumCoverView.image = [UIImage imageNamed:[[_appDelegate getDocumentsDirectory]stringByAppendingPathComponent:_currentSong.songLocalImageFilename]];
+    
+    NSURL *sample = [NSURL URLWithString:_currentSong.sampleURL];
+    NSLog(@"URL To play: %@",_currentSong.sampleURL);
+    _audioPlayer = [AVPlayer playerWithURL:sample];
+    _audioPlayer.actionAtItemEnd = AVPlayerActionAtItemEndNone;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerItemDidReachEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:[_audioPlayer currentItem]];
+    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
 }
-*/
 
 @end

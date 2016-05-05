@@ -19,6 +19,8 @@
 		49FCA7491CCFE0E90092415D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49FCA7481CCFE0E90092415D /* SystemConfiguration.framework */; };
 		49FCA74C1CCFE61D0092415D /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FCA74B1CCFE61D0092415D /* DetailViewController.m */; };
 		49FCA75F1CD126270092415D /* SongCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FCA75E1CD126270092415D /* SongCollectionViewCell.m */; };
+		49FCA7C61CDA72D40092415D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49FCA7C51CDA72D40092415D /* AVFoundation.framework */; };
+		49FCA7C81CDA72D80092415D /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49FCA7C71CDA72D80092415D /* AudioToolbox.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +44,8 @@
 		49FCA74B1CCFE61D0092415D /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		49FCA75D1CD126270092415D /* SongCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SongCollectionViewCell.h; sourceTree = "<group>"; };
 		49FCA75E1CD126270092415D /* SongCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SongCollectionViewCell.m; sourceTree = "<group>"; };
+		49FCA7C51CDA72D40092415D /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		49FCA7C71CDA72D80092415D /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +53,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49FCA7C81CDA72D80092415D /* AudioToolbox.framework in Frameworks */,
+				49FCA7C61CDA72D40092415D /* AVFoundation.framework in Frameworks */,
 				49FCA7491CCFE0E90092415D /* SystemConfiguration.framework in Frameworks */,
 				49FCA7471CCFE0E30092415D /* Social.framework in Frameworks */,
 			);
@@ -60,6 +66,8 @@
 		49A9C4D31CCEE0560007781F = {
 			isa = PBXGroup;
 			children = (
+				49FCA7C71CDA72D80092415D /* AudioToolbox.framework */,
+				49FCA7C51CDA72D40092415D /* AVFoundation.framework */,
 				49FCA7481CCFE0E90092415D /* SystemConfiguration.framework */,
 				49FCA7461CCFE0E30092415D /* Social.framework */,
 				49A9C4DE1CCEE0560007781F /* Tune Search */,

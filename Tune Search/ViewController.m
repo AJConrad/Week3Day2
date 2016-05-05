@@ -11,16 +11,26 @@
 #import "Reachability.h"
 #import "DetailViewController.h"
 #import "SongCollectionViewCell.h"
+#import <AudioToolbox/AudioToolbox.h>
+#import <AVFoundation/AVFoundation.h>
+#import "AppDelegate.h"
 
 
 @interface ViewController ()
 
+@property (nonatomic, strong)               AppDelegate         *appDelegate;
 @property (nonatomic, strong)               NSString            *hostName;
 @property (nonatomic, strong)               NSMutableArray      *songArray;
 @property (nonatomic, weak)     IBOutlet    UICollectionView    *songsCollectionView;
-@property (nonatomic, weak)     IBOutlet    UITextField         *artistSearchTextField;
+@property (nonatomic, strong)   IBOutlet    UISearchBar         *searchBar;
 
-//collectionViewUrl is the key for the in app browser
+
+//Stuff for animations
+@property (nonatomic, weak)     IBOutlet        UIView              *menuView;
+@property (nonatomic, weak)     IBOutlet        NSLayoutConstraint  *menuTopConstraint;
+@property (nonatomic, weak)     IBOutlet        NSLayoutConstraint  *collectionTopConstraint;
+@property (nonatomic, weak)     IBOutlet        NSLayoutConstraint  *collectionBottomConstraint;
+
 
 @end
 
@@ -32,14 +42,48 @@ Reachability *wifiReach;
 bool internetAvailable;
 bool serverAvailable;
 
-#pragma mark - File System Methods
+//[[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardAppearance) name:UIKeyboardWillShowNotification object:nil];
 
-- (NSString *)getDocumentsDirectory {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, true);
-    NSLog(@"doc path %@",paths[0]);
-    return paths[0];
-    
+
+//[[[NSNotificationCenter defaultCenter] addObserver:self
+//                                         selector:@selector(_keyboardWillShow:)
+//                                             name:UIKeyboardWillShowNotification
+//                                           object:nil];
+
+#pragma mark - Animation Methods
+
+
+- (IBAction)toggleMenuView:(id)sender {
+    NSLog(@"Toggle");
+    if (_menuView.hidden) {
+        [_menuView setHidden:false];
+        [UIView animateWithDuration:0.6 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            //[_menuView setAlpha:1.0];
+            _menuTopConstraint.constant = 0.0;
+            _collectionTopConstraint.constant = 0.0;
+            [self.view layoutIfNeeded];
+        } completion:^(BOOL finished) {
+            //
+        }];
+    } else {
+        {[UIView animateWithDuration:0.6 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            //[_menuView setAlpha:0.0];
+            _menuTopConstraint.constant = -1 * (_menuView.frame.size.height + self.navigationController.navigationBar.frame.size.height);
+            _collectionTopConstraint.constant = 44.0;
+            [self.view layoutIfNeeded];
+        } completion:^(BOOL finished) {
+            [_menuView setHidden:true];
+        }];
+        }
+    }
 }
+
+- (IBAction)searchSelectGesture:(UIGestureRecognizer *)gesture {
+    
+
+}
+
+#pragma mark - File System Methods
 
 - (BOOL)file:(NSString *)filename isInDirectory: (NSString *)directory {
     NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -62,11 +106,11 @@ bool serverAvailable;
     Song *currentSong = _songArray[indexPath.row];
     cell.songNameLabel.text = currentSong.songName;
     
-    if ([self file:currentSong.songLocalImageFilename isInDirectory:[self getDocumentsDirectory]]) {
-        NSLog(@"Found %@",currentSong.songImageFilename);
-        cell.songImageView.image = [UIImage imageNamed:[[self getDocumentsDirectory] stringByAppendingPathComponent:currentSong.songLocalImageFilename]];
+    if ([self file:currentSong.songLocalImageFilename isInDirectory:[_appDelegate getDocumentsDirectory]]) {
+//        NSLog(@"Found %@",currentSong.songImageFilename);
+        cell.songImageView.image = [UIImage imageNamed:[[_appDelegate getDocumentsDirectory] stringByAppendingPathComponent:currentSong.songLocalImageFilename]];
     } else {
-        NSLog(@"Not Found %@",currentSong.songImageFilename);
+//        NSLog(@"Not Found %@",currentSong.songImageFilename);
         [self getImageFromServer:currentSong.songLocalImageFilename fromUrl:currentSong.songImageFilename atIndexPath:indexPath];
     }
     
@@ -114,6 +158,8 @@ bool serverAvailable;
     }
 }
 
+
+
 - (void)reachabilityChanged:(NSNotification *)notification {
     Reachability *currentReach = [notification object];
     [self updateReachabilityStatus:currentReach];
@@ -121,7 +167,7 @@ bool serverAvailable;
 
 - (void)getImageFromServer: (NSString *) localFileName fromUrl:(NSString *)fullFileName atIndexPath:(NSIndexPath *) indexPath {
     if (serverAvailable) {
-        NSLog(@"local:%@ url:%@",localFileName, fullFileName);
+//        NSLog(@"local:%@ url:%@",localFileName, fullFileName);
         NSURL *fileURL = [NSURL URLWithString:fullFileName];
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc]init];
         [request setURL:fileURL];
@@ -130,7 +176,7 @@ bool serverAvailable;
         NSURLSession *session = [NSURLSession sharedSession];
         [[session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
             if (([data length] > 0) && (error == nil)) {
-                NSString *savedFilePath = [[self getDocumentsDirectory] stringByAppendingPathComponent:localFileName];
+                NSString *savedFilePath = [[_appDelegate getDocumentsDirectory] stringByAppendingPathComponent:localFileName];
                 UIImage *imageTemp = [UIImage imageWithData:data];
                 if (imageTemp != nil) {
                     [data writeToFile:savedFilePath atomically:true];
@@ -159,12 +205,17 @@ bool serverAvailable;
 }
 
 - (IBAction)searchButton:(id)sender {
+    [_searchBar resignFirstResponder];
+
+    _collectionBottomConstraint.constant = 1.0;
+    NSLog(@"%f",_collectionBottomConstraint.constant);
+    
     if (serverAvailable) {
         
-        NSString *artistSearchString = _artistSearchTextField.text;
+        NSString *artistSearchString = _searchBar.text;
         
         NSURL *fileURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://%@/search?term=%@",_hostName,artistSearchString]];
-        NSLog(@"Searching for %@",artistSearchString);
+ //       NSLog(@"Searching for %@",artistSearchString);
         
         //
         //
@@ -187,22 +238,16 @@ bool serverAvailable;
                 for (NSDictionary *songDict in tempArray) {
                     NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
                     formatter.dateFormat = @"yyyy-MM-dd";
+                  
+                    Song *newSong = [[Song alloc] initWithName:[songDict objectForKey:@"trackName"]
+                                              andCollectionUrl:[songDict objectForKey:@"collectionViewUrl"] andImageName:[songDict objectForKey:@"artworkUrl100"]
+                                                     andSample:[songDict objectForKey:@"previewUrl"]
+                                                 andCollection:[songDict objectForKey:@"previewUrl"]];
                     
-                    Song *newSong = [[Song alloc]initWithName:[songDict objectForKey:@"trackName"]
-                                             andCollectionUrl:[songDict objectForKey:@"collectionViewUrl"]
-                                                 andImageName:[songDict objectForKey:@"artworkUrl100"]
-                                                andCollection:[songDict objectForKey:@"collectionName"]];
-
                     newSong.songLocalImageFilename = [NSString stringWithFormat:@"%@.jpg",[songDict objectForKey:@"trackId"]];
                     [_songArray addObject:newSong];
                 }
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    //
-                    //
-                    //main thread code goes here
-                    //BUT THIS COMMENT WAS COPIED FROM CLASS WHAT DOES IT MEAAAANNNNN
-                    //
-                    //
                     [_songsCollectionView reloadData];
                 });
             }
@@ -220,6 +265,32 @@ bool serverAvailable;
 
 #pragma mark - Life Cycle Methods
 
+//keyboard changes start
+//The NSLog says thats its working but I can't tell. So I think its done?
+//Have a look anyway if you are reading this cobbled together code mess
+
+- (void)observeKeyboard {
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardAppearance:) name:UIKeyboardWillShowNotification object:nil];
+}
+
+- (void)keyboardAppearance:(NSNotification *)notification {
+    NSDictionary *info = [notification userInfo];
+    NSValue *keyboardFrame = [info objectForKey:UIKeyboardFrameEndUserInfoKey];
+    NSTimeInterval animationDuration = [[info objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    CGRect keyboardHeight = [keyboardFrame CGRectValue];
+    CGFloat height = keyboardHeight.size.height;
+    
+    _collectionBottomConstraint.constant = height;
+    NSLog(@"%f",_collectionBottomConstraint.constant);
+    
+    [UIView animateWithDuration:animationDuration animations:^{
+        [self.view layoutIfNeeded];
+    }];
+}
+
+//keyboard changes end
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     _hostName = @"itunes.apple.com";
@@ -235,6 +306,10 @@ bool serverAvailable;
     [wifiReach startNotifier];
     
     _songArray = [[NSMutableArray alloc]init];
+    
+    _appDelegate = [[UIApplication sharedApplication] delegate];
+    
+    [self observeKeyboard];
 
 }
 
